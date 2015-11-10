@@ -8,8 +8,15 @@ apisecret = "ccK8U0k7VFuoo0mQ8IxVgrw7NMEFRdyvWfDqjxc70YWGYDEpCN"
 key = b64encode(apikey + ":" + apisecret)
 authurl = "https://api.twitter.com/oauth2/token/"
 
-#sends general request
 def apirequest(url, auth, post):
+    """
+    params:
+          url:  string, request url
+          auth: string, authentification token
+          post: boolean, true = post request, false = get
+    return:
+          json
+    """
     heads = {'Host':'api.twitter.com',
              'User-Agent':'TwitsonLD',
              'Authorization': auth}
@@ -29,27 +36,25 @@ def apirequest(url, auth, post):
 token = json.loads(apirequest(authurl, "Basic " + key, True))
 tokenauth = "Bearer " + token['access_token'] #used to authorize api requests
 
-
-#returns string of numtweets tweets written by user
-#does not include retweets
-#should this include replies or nah?
 def getUserTweets(user, numtweets):
+    """
+    params:
+          user: string, twitter handle
+          numtweets: int, number of tweets
+    return:
+          string,
+          numtweets tweets written by user
+          does not include retweets and replies
+    """
     uri = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=%s&count=%s"
     url = uri%(user,numtweets)
     results = json.loads(apirequest(url, tokenauth, False))
     #pretty = json.dumps(results, sort_keys=True, indent=4)#for testing
     tweets = ""
     for post in results:
-        if post['retweeted'] == False:
+        if post['retweeted'] == False and post['in_reply_to_screen_name']:
             tweets += "\n" + post['text']
     return tweets
-
-#returns id(#) of user with the screen name user
-def getUserId(user):
-    uri = "https://api.twitter.com/1.1/users/lookup.json?screen_name=%s"
-    url = uri%(user)
-    results = json.loads(apirequest(url, tokenauth, False))
-    return results[0]['id']
 
 #Tests
 #print getUserTweets("twitterapi",10)
