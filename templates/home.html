@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+{% block content %}
+<h2>Info</h2>
+<p>Enter a twitter handle and get back a personality analysis 
+	based on that user's tweets.</p>
+<hr><br>
+<form action="/personality" method="GET">
+	<input type="text" name="handle" placeholder="Twitter Handle">
+	<input type="submit" value="Get Personality Analysis">
+</form>
+{% endblock %}
