@@ -29,7 +29,7 @@ def apirequest(url, auth, post):
     try:
         return urllib2.urlopen(req).read()
     except urllib2.HTTPError, error:
-        print error.read()
+        return error.read()
 
 
 #gets authorization token from twitter
@@ -49,6 +49,9 @@ def getUserTweets(user):
     url = uri%(user,200)
     results = json.loads(apirequest(url, tokenauth, False))
     #pretty = json.dumps(results, sort_keys=True, indent=4)#for testing
+    if 'errors' in results:
+        #maybe we can use the code key to handle specific errors?
+        return results['errors'][0]
     tweets = ""
     for post in results:
         if post['retweeted'] == False and post['in_reply_to_screen_name'] == None:
@@ -56,5 +59,5 @@ def getUserTweets(user):
     return tweets
 
 # #Tests
-# print getUserTweets("twitterapi")
+print getUserTweets("sdgsdgsdgi")
 #print getUserId("twitterapi")
