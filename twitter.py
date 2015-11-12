@@ -59,5 +59,5 @@ def getUserTweets(user):
     return tweets
 
 # #Tests
-print getUserTweets("sdgsdgsdgi")
+#print getUserTweets("sdgsdgsdgi")
 #print getUserId("twitterapi")

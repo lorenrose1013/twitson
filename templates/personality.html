@@ -2,6 +2,16 @@
 
 {% block title %} Personality analysis for {{ user }} {% endblock %}
 {% block content %}
+
+{% for personality in personalityDict %}
+
+<b> {{personality}} : </b> {{personalityDict[personality]}} %
+<hr>
+
+{% endfor %} 
+
+
+
 {{ user }}
 <a href ="/home"><button>Submit Another</button></a>
 {% endblock %}
