@@ -36,26 +36,25 @@ def apirequest(url, auth, post):
 token = json.loads(apirequest(authurl, "Basic " + key, True))
 tokenauth = "Bearer " + token['access_token'] #used to authorize api requests
 
-def getUserTweets(user, numtweets):
+def getUserTweets(user):
     """
     params:
           user: string, twitter handle
-          numtweets: int, number of tweets
     return:
           string,
-          numtweets tweets written by user
+          returns most recent 200 tweets
           does not include retweets and replies
     """
     uri = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=%s&count=%s"
-    url = uri%(user,numtweets)
+    url = uri%(user,200)
     results = json.loads(apirequest(url, tokenauth, False))
     #pretty = json.dumps(results, sort_keys=True, indent=4)#for testing
     tweets = ""
     for post in results:
-        if post['retweeted'] == False and post['in_reply_to_screen_name']:
+        if post['retweeted'] == False and post['in_reply_to_screen_name'] == None:
             tweets += "\n" + post['text']
     return tweets
 
-#Tests
-#print getUserTweets("twitterapi",10)
+# #Tests
+# print getUserTweets("twitterapi")
 #print getUserId("twitterapi")
