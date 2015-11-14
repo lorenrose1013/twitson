@@ -11,7 +11,7 @@ def home():
 @app.route('/personality')
 def personality():
 	if request.method == "GET" and request.args.get('handle') != '':
-		handle = request.args.get('handle')
+		handle = request.args.get('handle').strip('@')
 	else:
 		handle = utils.getRandomHandle()
 	personalityDict = utils.getPersonalityDict(handle)
