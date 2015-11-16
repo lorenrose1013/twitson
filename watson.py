@@ -12,10 +12,10 @@ def getJsonInput(text):
 	return:
 		input_data for the api request 
 	"""
-    input_data = {
-    'sid' : 'ie-en-news',
-    'txt' : text}
-    return input_data
+	input_data = {
+	'sid' : 'ie-en-news',
+	'txt' : text}
+	return input_data
 
 def getHeader(): 
 	"""
@@ -24,9 +24,9 @@ def getHeader():
 	return:
 		header for the api request 
 	"""
-    header = {
-    'Content-Type': 'text/plain; charset=utf-8'}
-    return header
+	header = {
+	'Content-Type': 'text/plain; charset=utf-8'}
+	return header
 
 def getPersonalityDict(text):
 	"""
@@ -48,10 +48,10 @@ def getJsonPersonality(text):
 	return:
 		raw json responce from IBM Watson's Personality Analyzer
 	"""
-    input_data = getJsonInput(text)
-    header = getHeader()
-    response = requests.post(url, auth=(username, password), data=input_data, headers=header)
-    response = json.loads(response.text)
-    return response
+	input_data = getJsonInput(text)
+	header = getHeader()
+	response = requests.post(url, auth=(username, password), data=input_data, headers=header)
+	response = json.loads(response.text)
+	return response
 
 

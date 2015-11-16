@@ -10,7 +10,7 @@ def home():
 
 @app.route('/personality')
 def personality():
-	if request.method == "GET" and request.args.get('handle') != '':
+	if request.method == "GET" and 'handle' in request.args and request.args.get('handle') != '':
 		handle = request.args.get('handle').strip('@')
 	else:
 		handle = utils.getRandomHandle()
