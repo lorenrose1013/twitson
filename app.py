@@ -10,14 +10,14 @@ def home():
 
 @app.route('/personality')
 def personality():
-	if request.method == "GET" and request.args.get('handle') != None:
-		handle = request.args.get('handle')
+	if request.method == "GET" and request.args.get('handle') != '':
+		handle = request.args.get('handle').strip('@')
 	else:
 		handle = utils.getRandomHandle()
 	personalityDict = utils.getPersonalityDict(handle)
 	if personalityDict == None:
 		return "no"
-	return render_template("personality.html", user=handle, personalityDict=personalityDict)
+	return render_template("personality.html", user='@'+handle, personalityDict=personalityDict)
 
 if __name__ == "__main__":
     app.debug = True
